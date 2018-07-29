@@ -160,17 +160,18 @@ class WM(object):
                 if str(event.window.get_wm_name()) == 'Keyboard':
                     self.wm_keyboard = event.window
                     self.keyboard_height = event.window.get_geometry().height
-                    event.window.configure(x=0, y=self.full_height-self.keyboard_height, width=self.full_width)
+                    event.window.configure(x=0, y=760-self.keyboard_height, width=self.full_width)
                     # catch the keyboard events to later redirect them to the active window
                     event.window.change_attributes(event_mask=X.KeyPressMask | X.KeyReleaseMask)
                     event.window.unmap()
                 elif str(event.window.get_wm_name()) == 'kobowm-dock':
                     self.wm_dock = event.window
-                    event.window.configure(x=0, y=self.full_height, width=self.full_width, height=60)
+                    #event.window.configure(x=0, y=self.full_height, width=self.full_width, height=60)
+                    event.window.configure(x=0, y=0, width=self.full_width, height=60)
                     event.window.unmap()
                 elif str(event.window.get_wm_name()) == 'kobowm-launcher':
                     self.wm_launcher = event.window
-                    event.window.configure(x=0, y=0, height=self.full_height, width=self.full_width)
+                    event.window.configure(x=0, y=60, height=self.full_height, width=self.full_width)
                     event.window.unmap()
                 elif str(event.window.get_wm_name()) == 'kobowm-notifications':
                     self.wm_notifs = event.window
@@ -226,7 +227,7 @@ class WM(object):
             self.top_win_list.append(event.window)
             self.top_win_pos = len(self.top_win_list) - 1
         # use all the available screen
-        self.active_window.configure(x=-1, y=-1, width=self.full_width, height=self.full_height)
+        self.active_window.configure(x=-1, y=60, width=self.full_width, height=self.full_height)
         # hide the keyboard if it was open
         if self.keyboard_on:
             self.wm_keyboard.unmap()
